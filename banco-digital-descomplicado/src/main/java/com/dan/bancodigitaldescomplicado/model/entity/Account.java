@@ -19,6 +19,7 @@ public class Account implements Serializable{
 
     @Column(unique = true)
     private String number;
+    
     private BigDecimal balance;
     private TypeAccount type;
 
