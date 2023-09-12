@@ -19,6 +19,10 @@ public class Client implements Serializable{
     private String telephone;
     private String email;
 
+    @OneToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name="user_id_fk")
+    private User user;
+
 
 
 
