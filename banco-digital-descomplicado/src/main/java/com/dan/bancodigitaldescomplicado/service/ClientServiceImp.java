@@ -14,21 +14,17 @@ public class ClientServiceImp implements ClientService {
     private ClienteRepository clienteRepository;
 
     @Override
-    public void save(Client client) {
-        clienteRepository.save(client);
+    public Client save(Client client) {
+        
+        return clienteRepository.save(client);
     }
 
-    @Override
-    public void deleteById(Long id) throws Exception {
-        findById(id);
-        clienteRepository.deleteById(id);
-    }
 
     @Override
     public void edit(Client client) throws Exception {
 
         findById(client.getId());
-        clienteRepository.save(client);
+        clienteRepository.saveAndFlush(client);
 
     }
 

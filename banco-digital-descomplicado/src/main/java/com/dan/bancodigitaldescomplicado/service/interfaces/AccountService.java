@@ -5,7 +5,7 @@ import com.dan.bancodigitaldescomplicado.model.entity.Account;
 
 public interface AccountService {
 
-    public void save(Account account);
+    public Account save(Account account);
 
     public void deleteById(Long id) throws Exception;
 

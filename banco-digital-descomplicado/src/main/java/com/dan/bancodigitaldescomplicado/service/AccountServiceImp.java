@@ -14,9 +14,9 @@ public class AccountServiceImp implements AccountService{
     private AccountRepository accountRepository;
 
     @Override
-    public void save(Account account) {
+    public Account save(Account account) {
         
-        accountRepository.save(account);
+        return accountRepository.saveAndFlush(account);
     }
 
     @Override

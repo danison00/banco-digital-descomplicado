@@ -4,9 +4,7 @@ import com.dan.bancodigitaldescomplicado.model.entity.Client;
 
 public interface ClientService {
 
-    public void save(Client client);
-
-    public void deleteById(Long id) throws Exception;
+    public Client save(Client client);
 
     public void edit(Client client) throws Exception;
 
