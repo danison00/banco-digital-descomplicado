@@ -6,9 +6,11 @@ import java.time.LocalDate;
 import java.util.List;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 @Data
+@NoArgsConstructor
 @Entity
 @Table(name = "Accounts")
 public class Account implements Serializable{
@@ -21,6 +23,7 @@ public class Account implements Serializable{
     private String number;
 
     private BigDecimal balance;
+
     private TypeAccount type;
 
     @Column(columnDefinition = "DATE")
@@ -36,6 +39,14 @@ public class Account implements Serializable{
     @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "cliente_id_fk")
     private Client client;
+
+
+    public Account(TypeAccount type) {
+        this.type = type;
+        this.balance = BigDecimal.valueOf(0);
+    }
+
+    
 
 
 }

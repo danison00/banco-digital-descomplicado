@@ -4,10 +4,12 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 @Data
 @Entity
+@NoArgsConstructor
 @Table(name="Transactions")
 public class Transaction implements Serializable{
 
