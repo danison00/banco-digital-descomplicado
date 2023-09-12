@@ -19,7 +19,7 @@ public class Account implements Serializable{
 
     @Column(unique = true)
     private String number;
-    
+
     private BigDecimal balance;
     private TypeAccount type;
 
@@ -31,5 +31,11 @@ public class Account implements Serializable{
     
     @OneToMany(mappedBy = "destination")
     private List<Transaction> transactionsReceived;
+
+   
+    @OneToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "cliente_id_fk")
+    private Client client;
+
 
 }

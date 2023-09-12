@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-BancoDigitalDescomplicadoApplication<banco-digital-descomplicado>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.dan.bancodigitaldescomplicado.BancoDigitalDescomplicadoApplication",
+            "projectName": "banco-digital-descomplicado",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
