@@ -1,6 +1,7 @@
 package com.dan.bancodigitaldescomplicado.model.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -26,8 +27,16 @@ public class Transaction implements Serializable{
     @JoinColumn(name="destination_id_fk")
     private Account destination;
 
-    private BigInteger value;
+    private BigDecimal value;
     private String dateAndHour;
+    
+    public Transaction(Account origin, Account destination, BigDecimal value) {
+        this.origin = origin;
+        this.destination = destination;
+        this.value = value;
+    }
+
+    
     
     
 
