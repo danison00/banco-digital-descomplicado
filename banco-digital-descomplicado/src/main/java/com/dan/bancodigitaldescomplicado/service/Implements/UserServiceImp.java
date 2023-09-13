@@ -1,4 +1,4 @@
-package com.dan.bancodigitaldescomplicado.service;
+package com.dan.bancodigitaldescomplicado.service.Implements;
 
 import java.util.Optional;
 
@@ -12,24 +12,31 @@ import com.dan.bancodigitaldescomplicado.service.interfaces.UserService;
 @Service
 public class UserServiceImp implements UserService {
 
-
     @Autowired
     private UserRepository userRepository;
 
     @Override
-    public Optional<User> findByUsername(String username) throws Exception{
+    public Optional<User> findByUsername(String username) throws Exception {
 
         return userRepository.findByUsername(username);
     }
 
     @Override
     public User save(User user) throws Exception {
-       
-        if(findByUsername(user.getUsername()).isPresent()){
+
+        if (findByUsername(user.getUsername()).isPresent()) {
             throw new RuntimeException("usuario já existe");
         }
-        
+
         return userRepository.saveAndFlush(user);
     }
-    
+
+    @Override
+    public User findByAccountNumber(String accountNumber) throws Exception {
+        
+                
+        return userRepository.findByAccountNumber(accountNumber).orElseThrow(()-> new RuntimeException("Numero de conta inexistente")); 
+        
+    }
+
 }

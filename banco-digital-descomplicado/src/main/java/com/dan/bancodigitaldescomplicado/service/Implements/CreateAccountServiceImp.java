@@ -1,4 +1,4 @@
-package com.dan.bancodigitaldescomplicado.service;
+package com.dan.bancodigitaldescomplicado.service.Implements;
 
 import java.time.LocalDate;
 import java.util.Random;
@@ -48,7 +48,7 @@ public class CreateAccountServiceImp implements CreateAccountService {
 
     protected String generateAccountNumber() {
     
-        return RandomStringUtils.randomNumeric(8);
+        return RandomStringUtils.randomNumeric(4);
         
     }
 }
