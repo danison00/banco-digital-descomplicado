@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.dan.bancodigitaldescomplicado.model.dto.DepositDto;
+import com.dan.bancodigitaldescomplicado.model.dto.DepositRequestDto;
 import com.dan.bancodigitaldescomplicado.model.entity.Account;
 import com.dan.bancodigitaldescomplicado.model.entity.Deposit;
 import com.dan.bancodigitaldescomplicado.repository.DepositRepository;
@@ -28,7 +28,7 @@ public class DepositServiceImp implements DepositService {
 
     @Transactional
     @Override
-    public void executeDeposit(DepositDto depositDto) throws Exception {
+    public void executeDeposit(DepositRequestDto depositDto) throws Exception {
 
         Deposit deposit = mapper.fromDepositDtoToDeposit(depositDto);
         Account destination = deposit.getDestination();

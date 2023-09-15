@@ -3,7 +3,7 @@ import java.math.BigDecimal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.dan.bancodigitaldescomplicado.model.dto.TransferDto;
+import com.dan.bancodigitaldescomplicado.model.dto.TransferRequestDto;
 import com.dan.bancodigitaldescomplicado.model.entity.Account;
 import com.dan.bancodigitaldescomplicado.model.entity.Transfer;
 import com.dan.bancodigitaldescomplicado.repository.TransferRepository;
@@ -21,7 +21,7 @@ public class TransferServiceImp extends AbstractTransactionalService implements 
 
     @Transactional
     @Override
-    public void executeTransfer(TransferDto transactionDto) throws Exception {
+    public void executeTransfer(TransferRequestDto transactionDto) throws Exception {
 
         Transfer transaction = mapper.fromTransactionDtoToTransaction(transactionDto);
    
