@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dan.bancodigitaldescomplicado.model.dto.DepositDto;
-import com.dan.bancodigitaldescomplicado.model.dto.TransferDto;
+import com.dan.bancodigitaldescomplicado.model.dto.DepositRequestDto;
+import com.dan.bancodigitaldescomplicado.model.dto.TransferRequestDto;
 import com.dan.bancodigitaldescomplicado.service.interfaces.DepositService;
 import com.dan.bancodigitaldescomplicado.service.interfaces.TransferService;
 
@@ -23,7 +23,7 @@ public class TransactionController {
     private DepositService depositService;
 
     @PostMapping("/transfer")
-    public ResponseEntity<?> sendTransaction(@RequestBody TransferDto transferDto) throws Exception {
+    public ResponseEntity<?> sendTransaction(@RequestBody TransferRequestDto transferDto) throws Exception {
 
         transferService.executeTransfer(transferDto);
 
@@ -31,7 +31,7 @@ public class TransactionController {
     }
 
     @PostMapping("/deposit")
-    public ResponseEntity<?> deposit(@RequestBody DepositDto depositDto) throws Exception {
+    public ResponseEntity<?> deposit(@RequestBody DepositRequestDto depositDto) throws Exception {
 
         depositService.executeDeposit(depositDto);
 

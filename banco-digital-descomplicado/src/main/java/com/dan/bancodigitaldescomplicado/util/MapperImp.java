@@ -1,12 +1,17 @@
 package com.dan.bancodigitaldescomplicado.util;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.dan.bancodigitaldescomplicado.model.dto.AccountDto;
+import com.dan.bancodigitaldescomplicado.model.dto.AccountResponseDto;
 import com.dan.bancodigitaldescomplicado.model.dto.CreateAccountRequest;
-import com.dan.bancodigitaldescomplicado.model.dto.DepositDto;
-import com.dan.bancodigitaldescomplicado.model.dto.TransferDto;
+import com.dan.bancodigitaldescomplicado.model.dto.DepositRequestDto;
+import com.dan.bancodigitaldescomplicado.model.dto.DepositResponseDto;
+import com.dan.bancodigitaldescomplicado.model.dto.TransferRequestDto;
+import com.dan.bancodigitaldescomplicado.model.dto.TransferResponseDto;
 import com.dan.bancodigitaldescomplicado.model.entity.Account;
 import com.dan.bancodigitaldescomplicado.model.entity.Client;
 import com.dan.bancodigitaldescomplicado.model.entity.Deposit;
@@ -34,7 +39,7 @@ public class MapperImp implements Mapper {
     @Override
     public Client fromCreateAccountRequestToCliente(CreateAccountRequest createAcc) throws Exception {
         User user = userService.findByUsername(createAcc.username()).get();
-       
+
         return new Client(
                 createAcc.cpf(),
                 createAcc.name(),
@@ -45,7 +50,7 @@ public class MapperImp implements Mapper {
     }
 
     @Override
-    public Transfer fromTransactionDtoToTransaction(TransferDto transactionDto) throws Exception {
+    public Transfer fromTransactionDtoToTransaction(TransferRequestDto transactionDto) throws Exception {
 
         Account accountOrigin = accountService.findByNumber(transactionDto.accountOrigin());
         Account accountDestination = accountService.findByNumber(transactionDto.accountSend());
@@ -55,7 +60,7 @@ public class MapperImp implements Mapper {
 
     }
 
-    public Deposit fromDepositDtoToDeposit(DepositDto depositDto) throws Exception {
+    public Deposit fromDepositDtoToDeposit(DepositRequestDto depositDto) throws Exception {
 
         Account accountOrigin = accountService.findByNumber(depositDto.accountNumber());
 
@@ -71,8 +76,60 @@ public class MapperImp implements Mapper {
                 account.getBalance(),
                 account.getOpeningDate(),
                 account.getDeposits(),
-                account.getTransactionsReceived(),
-                account.getTransactionsSend());
+                account.getTransferReceived(),
+                account.getTransferSend());
+
+    }
+
+    public AccountResponseDto fromAccountToAccountResponseDto(Account account) {
+
+        var depositsResponseDto = new ArrayList<DepositResponseDto>();
+        var transfersReceived = new ArrayList<TransferResponseDto>();
+        var transfersSend = new ArrayList<TransferResponseDto>();
+
+        account.getDeposits().stream().forEach(
+                deposit -> depositsResponseDto.add(fromDepositToDepositResponseDto(deposit)));
+
+        account.getTransferReceived().stream().forEach(
+                transfer -> transfersReceived.add(fromTransferToTransferReceivedResponseDto(transfer)));
+
+        account.getTransferSend().stream().forEach(
+                transfer -> transfersSend.add(fromTransferToTransferSendResponseDto(transfer)));
+
+        return new AccountResponseDto(
+                account.getClient().getName(),
+                account.getNumber(),
+                account.getBalance(),
+                account.getOpeningDate().toString(),
+                depositsResponseDto,
+                transfersReceived,
+                transfersSend);
+
+    }
+
+    public DepositResponseDto fromDepositToDepositResponseDto(Deposit deposit) {
+
+        return new DepositResponseDto(deposit.getValue(), deposit.getDateAndHour());
+
+    }
+
+    public TransferResponseDto fromTransferToTransferReceivedResponseDto(Transfer transfer) {
+
+        return new TransferResponseDto(
+                transfer.getOrigin().getClient().getName(),
+                transfer.getOrigin().getNumber(),
+                transfer.getValue(),
+                transfer.getDateAndHour());
+
+    }
+
+    public TransferResponseDto fromTransferToTransferSendResponseDto(Transfer transfer) {
+
+        return new TransferResponseDto(
+                transfer.getDestination().getClient().getName(),
+                transfer.getDestination().getNumber(),
+                transfer.getValue(),
+                transfer.getDateAndHour());
 
     }
 
