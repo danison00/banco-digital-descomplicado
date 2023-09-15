@@ -34,11 +34,11 @@ public class Account implements Serializable{
 
     @JsonIgnore
     @OneToMany(mappedBy = "origin")
-    private List<Transfer> transactionsSend;
+    private List<Transfer> transferSend;
    
     @JsonIgnore
     @OneToMany(mappedBy = "destination")
-    private List<Transfer> transactionsReceived;
+    private List<Transfer> transferReceived;
     
     @JsonIgnore
     @OneToMany(mappedBy = "destination")
