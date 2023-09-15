@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,13 +32,19 @@ public class Account implements Serializable{
     @Column(columnDefinition = "DATE")
     private LocalDate openingDate;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "origin")
-    private List<Transaction> transactionsSend;
-    
-    @OneToMany(mappedBy = "destination")
-    private List<Transaction> transactionsReceived;
-
+    private List<Transfer> transactionsSend;
    
+    @JsonIgnore
+    @OneToMany(mappedBy = "destination")
+    private List<Transfer> transactionsReceived;
+    
+    @JsonIgnore
+    @OneToMany(mappedBy = "destination")
+    private List<Deposit> deposits;
+
+   @JsonIgnore
     @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "cliente_id_fk")
     private Client client;

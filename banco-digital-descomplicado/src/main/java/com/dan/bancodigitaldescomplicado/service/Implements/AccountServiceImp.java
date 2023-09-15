@@ -7,11 +7,13 @@ import com.dan.bancodigitaldescomplicado.model.entity.Account;
 import com.dan.bancodigitaldescomplicado.repository.AccountRepository;
 import com.dan.bancodigitaldescomplicado.service.interfaces.AccountService;
 
+
 @Service
 public class AccountServiceImp implements AccountService {
 
     @Autowired
     private AccountRepository accountRepository;
+
 
     @Override
     public Account save(Account account) {
@@ -40,13 +42,21 @@ public class AccountServiceImp implements AccountService {
 
     @Override
     public Account findByNumber(String number) throws Exception {
-       return accountRepository.findByNumber(number).orElseThrow(()-> new RuntimeException("Conta não encontrada"));
+        return accountRepository.findByNumber(number).orElseThrow(() -> new RuntimeException("Conta não encontrada"));
     }
 
     @Override
     public Account update(Account account) {
-       
+
         return accountRepository.saveAndFlush(account);
+    }
+
+    @Override
+    public Account getDataAccount(String username) throws Exception{
+        
+        return accountRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("Conta para este usuário não encontrada"));
+              
+
     }
 
 }

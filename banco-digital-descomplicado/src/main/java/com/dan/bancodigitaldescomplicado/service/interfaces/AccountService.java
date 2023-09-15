@@ -1,7 +1,6 @@
 package com.dan.bancodigitaldescomplicado.service.interfaces;
 
 import com.dan.bancodigitaldescomplicado.model.entity.Account;
-import com.dan.bancodigitaldescomplicado.model.entity.Account;
 
 public interface AccountService {
 
@@ -16,5 +15,7 @@ public interface AccountService {
     Account findByNumber(String number) throws Exception;
 
     Account update(Account account);
+
+    Account getDataAccount(String username) throws Exception;
 
 }

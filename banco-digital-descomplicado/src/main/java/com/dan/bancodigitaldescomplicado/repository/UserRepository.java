@@ -12,7 +12,7 @@ public interface UserRepository extends JpaRepository<User, Long>{
 
     Optional<User> findByUsername(String username);
 
-    @Query("SELECT u FROM User u WHERE u.conta.number = :accountNumber")
+    @Query("SELECT a.client.user FROM Account a WHERE a.number = :accountNumber")
     Optional<User> findByAccountNumber(String accountNumber);
     
 }

@@ -3,15 +3,11 @@ package com.dan.bancodigitaldescomplicado.web.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.dan.bancodigitaldescomplicado.model.dto.CreateAccountRequest;
 import com.dan.bancodigitaldescomplicado.model.entity.Account;
-import com.dan.bancodigitaldescomplicado.model.entity.Client;
 import com.dan.bancodigitaldescomplicado.service.interfaces.AccountService;
 import com.dan.bancodigitaldescomplicado.service.interfaces.CreateAccountService;
-
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;

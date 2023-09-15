@@ -1,55 +1,26 @@
 package com.dan.bancodigitaldescomplicado.util;
 
-import java.math.BigDecimal;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
+import com.dan.bancodigitaldescomplicado.model.dto.AccountDto;
 import com.dan.bancodigitaldescomplicado.model.dto.CreateAccountRequest;
-import com.dan.bancodigitaldescomplicado.model.dto.TransactionDto;
+import com.dan.bancodigitaldescomplicado.model.dto.DepositDto;
+import com.dan.bancodigitaldescomplicado.model.dto.TransferDto;
 import com.dan.bancodigitaldescomplicado.model.entity.Account;
 import com.dan.bancodigitaldescomplicado.model.entity.Client;
-import com.dan.bancodigitaldescomplicado.model.entity.Transaction;
-import com.dan.bancodigitaldescomplicado.model.entity.User;
-import com.dan.bancodigitaldescomplicado.service.interfaces.AccountService;
-import com.dan.bancodigitaldescomplicado.service.interfaces.UserService;
+import com.dan.bancodigitaldescomplicado.model.entity.Deposit;
+import com.dan.bancodigitaldescomplicado.model.entity.Transfer;
 
-@Component
-public class Mapper {
+/**
+ * Mapper
+ */
+public interface Mapper {
 
-    @Autowired
-    private UserService userService;
+    Account fromCreateAccountRequestToAccount(CreateAccountRequest createAcc) throws Exception;
 
-    @Autowired
-    private AccountService accountService;
+    Client fromCreateAccountRequestToCliente(CreateAccountRequest createAcc) throws Exception;
 
-    public Account fromCreateAccountRequestToAccount(CreateAccountRequest createAcc) throws Exception {
+    Transfer fromTransactionDtoToTransaction(TransferDto transactionDto) throws Exception;
 
-        return new Account(createAcc.typeAccount());
+    Deposit fromDepositDtoToDeposit(DepositDto depositDto) throws Exception;
 
-    }
-
-    public Client fromCreateAccountRequestToCliente(CreateAccountRequest createAcc) throws Exception {
-        User user = userService.findByUsername(createAcc.username()).get();
-        Client client = new Client(
-                createAcc.cpf(),
-                createAcc.name(),
-                createAcc.email(),
-                createAcc.telephone(),
-                user);
-
-        return client;
-
-    }
-
-    public Transaction fromTransactionDtoToTransaction(TransactionDto transactionDto) throws Exception {
-
-        Account accountOrigin = accountService.findByNumber(transactionDto.accountOrigin());
-        Account accountDestination = accountService.findByNumber(transactionDto.accountSend());
-        BigDecimal value = transactionDto.value();
-
-        return new Transaction(accountOrigin, accountDestination, value);
-
-    }
-
+    AccountDto fromAccountToAccountDto(Account account);
 }
