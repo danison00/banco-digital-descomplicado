@@ -2,11 +2,10 @@ package com.dan.bancodigitaldescomplicado.model.dto;
 
 import java.math.BigDecimal;
 
-public record TransferDto(
-    String accountSend,
+public record TransferResponseDto(
+    String name,
     String accountOrigin,
-    BigDecimal value) {
-
-
+    BigDecimal value,
+    String dateAndHour) {
     
 }
