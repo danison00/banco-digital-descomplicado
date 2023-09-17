@@ -2,9 +2,6 @@ package com.dan.bancodigitaldescomplicado.model.entity;
 
 
 import java.math.BigDecimal;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -24,10 +21,9 @@ public class Transfer extends TransactionAbstract{
     private Account origin;
     
     public Transfer(Account origin, Account destination, BigDecimal value) {
-        super(destination, value);
-        this.origin = origin;
         
-      
+        super(destination, value);
+        this.origin = origin;      
     }
 
     

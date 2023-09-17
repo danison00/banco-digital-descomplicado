@@ -26,12 +26,12 @@ public abstract class TransactionAbstract implements Serializable{
     @JoinColumn(name="destination_id_fk")
     private Account destination;
 
-    private BigDecimal value;
+    private BigDecimal amount;
     private String dateAndHour;
     
     public TransactionAbstract(Account destination, BigDecimal value) {
         this.destination = destination;
-        this.value = value;
+        this.amount = value;
         this.dateAndHour = LocalDateTime.now().toString();
     }
     
