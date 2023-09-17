@@ -3,34 +3,26 @@ import java.math.BigDecimal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.dan.bancodigitaldescomplicado.model.dto.TransferRequestDto;
 import com.dan.bancodigitaldescomplicado.model.entity.Account;
 import com.dan.bancodigitaldescomplicado.model.entity.Transfer;
 import com.dan.bancodigitaldescomplicado.repository.TransferRepository;
 import com.dan.bancodigitaldescomplicado.service.interfaces.TransferService;
-import com.dan.bancodigitaldescomplicado.util.MapperImp;
 
 @Service
 public class TransferServiceImp extends AbstractTransactionalService implements TransferService {
 
-    @Autowired
-    private MapperImp mapper;
 
     @Autowired
     private TransferRepository transferRepository;
 
     @Transactional
     @Override
-    public void executeTransfer(TransferRequestDto transactionDto) throws Exception {
+    public void executeTransfer(Transfer transfer) throws Exception {
 
-        Transfer transaction = mapper.fromTransactionDtoToTransaction(transactionDto);
-   
-        checkSufficientBalance(transaction.getOrigin(), transaction.getValue());
-        tranferValue(transaction);
+        checkSufficientBalance(transfer.getOrigin(), transfer.getAmount());
+        tranferAmount(transfer);
 
     }
-
- 
 
     @Transactional
     @Override
@@ -38,28 +30,25 @@ public class TransferServiceImp extends AbstractTransactionalService implements 
 
         if (account.getBalance().compareTo(account.getBalance()) < 0)
             throw new RuntimeException("Saldo insuficiente");
-
        
     }
 
     @Transactional
     @Override
-    public void tranferValue(Transfer transaction) {
+    public void tranferAmount(Transfer transfer) {
 
-        Account origin = transaction.getOrigin();
-        Account destination = transaction.getDestination();
+        Account origin = transfer.getOrigin();
+        Account destination = transfer.getDestination();
 
-        incrementValue(destination, transaction.getValue());
-        decrementValue(origin, transaction.getValue());
+        incrementValue(destination, transfer.getAmount());
+        decrementValue(origin, transfer.getAmount());
 
-        transferRepository.saveAndFlush(transaction);
-
-
+        transferRepository.saveAndFlush(transfer);
     }
 
     @Transactional
     @Override
-    public void incrementValue(Account account, BigDecimal value) {
+    public void incrementBalance(Account account, BigDecimal value) {
 
         account.setBalance(account.getBalance().add(value));
 
@@ -67,12 +56,11 @@ public class TransferServiceImp extends AbstractTransactionalService implements 
 
     @Transactional
     @Override
-    public void decrementValue(Account account, BigDecimal value) {
+    public void decrementBalance(Account account, BigDecimal value) {
 
         account.setBalance(account.getBalance().subtract(value));
 
     }
-
 
 }
 

@@ -8,7 +8,7 @@ public interface TransactionsService {
    
     void checkSufficientBalance(Account account, BigDecimal value) throws Exception;
 
-    void incrementValue(Account account, BigDecimal value);
+    void incrementBalance(Account account, BigDecimal value);
 
-    void decrementValue(Account account, BigDecimal value);
+    void decrementBalance(Account account, BigDecimal value);
 }
