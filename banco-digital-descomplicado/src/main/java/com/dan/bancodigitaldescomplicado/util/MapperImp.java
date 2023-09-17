@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import com.dan.bancodigitaldescomplicado.model.dto.AccountDto;
 import com.dan.bancodigitaldescomplicado.model.dto.AccountResponseDto;
 import com.dan.bancodigitaldescomplicado.model.dto.CreateAccountRequest;
 import com.dan.bancodigitaldescomplicado.model.dto.DepositRequestDto;
@@ -68,19 +67,8 @@ public class MapperImp implements Mapper {
 
     }
 
+
     @Override
-    public AccountDto fromAccountToAccountDto(Account account) {
-
-        return new AccountDto(
-                account.getNumber(),
-                account.getBalance(),
-                account.getOpeningDate(),
-                account.getDeposits(),
-                account.getTransferReceived(),
-                account.getTransferSend());
-
-    }
-
     public AccountResponseDto fromAccountToAccountResponseDto(Account account) {
 
         var depositsResponseDto = new ArrayList<DepositResponseDto>();
@@ -109,7 +97,7 @@ public class MapperImp implements Mapper {
 
     public DepositResponseDto fromDepositToDepositResponseDto(Deposit deposit) {
 
-        return new DepositResponseDto(deposit.getValue(), deposit.getDateAndHour());
+        return new DepositResponseDto(deposit.getAmount(), deposit.getDateAndHour());
 
     }
 
@@ -118,7 +106,7 @@ public class MapperImp implements Mapper {
         return new TransferResponseDto(
                 transfer.getOrigin().getClient().getName(),
                 transfer.getOrigin().getNumber(),
-                transfer.getValue(),
+                transfer.getAmount(),
                 transfer.getDateAndHour());
 
     }
@@ -128,7 +116,7 @@ public class MapperImp implements Mapper {
         return new TransferResponseDto(
                 transfer.getDestination().getClient().getName(),
                 transfer.getDestination().getNumber(),
-                transfer.getValue(),
+                transfer.getAmount(),
                 transfer.getDateAndHour());
 
     }

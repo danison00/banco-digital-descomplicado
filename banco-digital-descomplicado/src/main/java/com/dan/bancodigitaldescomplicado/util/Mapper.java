@@ -1,6 +1,6 @@
 package com.dan.bancodigitaldescomplicado.util;
 
-import com.dan.bancodigitaldescomplicado.model.dto.AccountDto;
+import com.dan.bancodigitaldescomplicado.model.dto.AccountResponseDto;
 import com.dan.bancodigitaldescomplicado.model.dto.CreateAccountRequest;
 import com.dan.bancodigitaldescomplicado.model.dto.DepositRequestDto;
 import com.dan.bancodigitaldescomplicado.model.dto.TransferRequestDto;
@@ -22,5 +22,6 @@ public interface Mapper {
 
     Deposit fromDepositDtoToDeposit(DepositRequestDto depositDto) throws Exception;
 
-    AccountDto fromAccountToAccountDto(Account account);
+    AccountResponseDto fromAccountToAccountResponseDto(Account account);
+
 }
