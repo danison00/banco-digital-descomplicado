@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import com.dan.bancodigitaldescomplicado.model.dto.AccountResponseDto;
 import com.dan.bancodigitaldescomplicado.model.dto.CreateAccountRequest;
@@ -37,7 +38,7 @@ public class MapperImp implements Mapper {
 
     @Override
     public Client fromCreateAccountRequestToCliente(CreateAccountRequest createAcc) throws Exception {
-        User user = userService.findByUsername(createAcc.username()).get();
+        User user =(User)userService.loadUserByUsername(createAcc.username());
 
         return new Client(
                 createAcc.cpf(),

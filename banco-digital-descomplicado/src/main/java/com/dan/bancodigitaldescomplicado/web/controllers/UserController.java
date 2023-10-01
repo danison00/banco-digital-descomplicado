@@ -19,7 +19,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<?> save(@RequestBody User user) throws Exception {
      
        var newUser = userService.save(user);

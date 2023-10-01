@@ -1,12 +1,11 @@
 package com.dan.bancodigitaldescomplicado.service.interfaces;
 
-import java.util.Optional;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import com.dan.bancodigitaldescomplicado.model.entity.User;
 
-public interface UserService {
-
-    Optional<User> findByUsername(String username) throws Exception;
+public interface UserService  extends UserDetailsService{
 
     User save(User user) throws Exception;
 
