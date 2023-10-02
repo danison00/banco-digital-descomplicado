@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public record TransferRequestDto(
     String accountSend,
-    String accountOrigin,
-    BigDecimal value) {
+    BigDecimal value,
+    boolean saveDestination) {
 
 }

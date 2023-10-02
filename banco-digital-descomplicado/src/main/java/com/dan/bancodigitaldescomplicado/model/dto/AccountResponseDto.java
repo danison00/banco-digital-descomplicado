@@ -10,6 +10,7 @@ public record AccountResponseDto(
         String openingDate,
         ArrayList<DepositResponseDto> deposits,
         ArrayList<TransferResponseDto> tranfersReceived,
-        ArrayList<TransferResponseDto> tranfersSend) {
+        ArrayList<TransferResponseDto> tranfersSend,
+        ArrayList<AccountFavoriteDto> favoritesAccounts) {
 
 }
