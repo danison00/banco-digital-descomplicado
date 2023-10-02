@@ -2,6 +2,7 @@ package com.dan.bancodigitaldescomplicado.web.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,9 +27,11 @@ public class TransactionController {
     private Mapper mapper;
 
     @PostMapping("/transfer")
-    public ResponseEntity<?> executeTransfer(@RequestBody TransferRequestDto transferDto) throws Exception {
+    public ResponseEntity<?> executeTransfer(@RequestBody TransferRequestDto transferDto, Authentication authentication) throws Exception {
 
-        transferService.executeTransfer(mapper.fromTransactionDtoToTransaction(transferDto));
+        String username = authentication.getPrincipal().toString();
+
+        transferService.executeTransfer(mapper.fromTransactionDtoToTransaction(transferDto, username));
 
         return ResponseEntity.ok().build();
     }

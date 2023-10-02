@@ -35,7 +35,7 @@ public class CreateAccountController {
     public ResponseEntity<?> delete(@PathVariable(name = "id") Long id) throws Exception {
 
         if (id == null)
-            throw new RuntimeException("prametro id inválido");    
+            throw new RuntimeException("parâmetro id inválido");    
         
         accountService.deleteById(id);
         return ResponseEntity.ok().build();
