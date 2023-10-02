@@ -1,4 +1,4 @@
-# Banco Digital Descomplicado 
+# Banco Digital Descomplicado 🏦💻🤝 
 O objetivo deste projeto foi desenvolver um protótipo de backend de um banco digital com a criação de conta e uso das funcionalidades de forma simplificada. Foi implementada usando a linguagem Java e Spring Framework além de diversas ferramentas e bibliotecas. Foram aplicados boas práticas de desenvolvimento, bem como princípios SOLID.
 Tabém foi usando o módulo Spring Security e autenticação por Token(JWT) para garantir a segurança da aplicação.
 
