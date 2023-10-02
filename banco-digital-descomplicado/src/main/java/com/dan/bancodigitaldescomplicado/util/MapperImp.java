@@ -61,8 +61,8 @@ public class MapperImp implements Mapper {
     @Override
     public Transfer fromTransactionDtoToTransaction(TransferRequestDto transactionDto, String username) throws Exception {
 
-        Account accountOrigin = accountService.getDataAccount(username);
-        Account accountDestination = accountService.findByNumber(transactionDto.accountSend());
+        Account accountOrigin = accountService.findByUsername(username);
+        Account accountDestination = accountService.findByNumber(transactionDto.accountDestination());
         BigDecimal value = transactionDto.value();
 
         return new Transfer(accountOrigin, accountDestination, value, transactionDto.saveDestination());
