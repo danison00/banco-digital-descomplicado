@@ -76,3 +76,14 @@ url: http://localhost:8080/account
     }
 }
 ~~~
+### Depósito
+~~~
+Method: POST
+url: http://localhost:8080/transaction/deposit
+~~~
+~~~
+{
+    "accountNumber" : "4223" ,
+    "value" : "150.0"
+}
+~~~
