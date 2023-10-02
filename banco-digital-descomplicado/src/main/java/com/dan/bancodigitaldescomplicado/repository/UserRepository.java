@@ -11,7 +11,7 @@ import com.dan.bancodigitaldescomplicado.model.entity.User;
 
 public interface UserRepository extends JpaRepository<User, Long>{
 
-    UserDetails findByUsername(String username);
+    Optional<UserDetails> findByUsername(String username);
 
     @Query("SELECT a.client.user FROM Account a WHERE a.number = :accountNumber")
     Optional<User> findByAccountNumber(String accountNumber);
