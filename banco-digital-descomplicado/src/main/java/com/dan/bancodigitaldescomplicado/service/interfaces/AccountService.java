@@ -16,6 +16,6 @@ public interface AccountService {
 
     Account update(Account account);
 
-    Account getDataAccount(String username) throws Exception;
+    Account findByUsername(String username) throws Exception;
 
 }

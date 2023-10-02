@@ -52,11 +52,10 @@ public class AccountServiceImp implements AccountService {
     }
 
     @Override
-    public Account getDataAccount(String username) throws Exception{
+    public Account findByUsername(String username) throws Exception{
         
         return accountRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("Conta para este usuário não encontrada"));
               
 
     }
-
 }
