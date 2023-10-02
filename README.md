@@ -59,8 +59,9 @@ Para este projeto, adotou-se a **Arquitetura Em Camadas**, onde as responsabilid
 ## API's
 ### Criar Conta
 Method: POST
+url:
 ~~~
-url: http://localhost:8080/account
+http://localhost:8080/account
 ~~~
 #### Exemplo:
 ~~~
@@ -78,8 +79,9 @@ url: http://localhost:8080/account
 ~~~
 ### Depósito
 Method: POST
+url:
 ~~~
-url: http://localhost:8080/transaction/deposit
+http://localhost:8080/transaction/deposit
 ~~~
 ~~~
 {
