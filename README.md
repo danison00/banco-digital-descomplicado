@@ -62,15 +62,16 @@ Para este projeto, adotou-se a **Arquitetura Em Camadas**, onde as responsabilid
 Method: POST
 url: http://localhost:8080/account
 ~~~
+#### Exemplo:
 ~~~
 {
     "cpf": "9854785",
-    "name": "bg",
-    "telephone": "91984733208",
-    "email": "dan@email.com",
+    "name": "José",
+    "telephone": "(91)98758-9696",
+    "email": "jose@email.com",
     "typeAccount": "CURRENT",
     "login": {
-        "username": "gabi",
+        "username": "jose",
         "password": "12345"
     }
 }
