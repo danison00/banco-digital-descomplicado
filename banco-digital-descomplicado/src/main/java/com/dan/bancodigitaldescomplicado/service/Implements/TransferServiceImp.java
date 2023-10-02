@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.dan.bancodigitaldescomplicado.model.entity.Account;
 import com.dan.bancodigitaldescomplicado.model.entity.Transfer;
 import com.dan.bancodigitaldescomplicado.repository.TransferRepository;
+import com.dan.bancodigitaldescomplicado.service.interfaces.AccountService;
 import com.dan.bancodigitaldescomplicado.service.interfaces.TransferService;
 
 @Service
@@ -15,12 +16,28 @@ public class TransferServiceImp extends AbstractTransactionalService implements 
     @Autowired
     private TransferRepository transferRepository;
 
+    @Autowired
+    private AccountService accountService;
+
     @Transactional
     @Override
     public void executeTransfer(Transfer transfer) throws Exception {
 
+        Account origin = transfer.getOrigin();
+        Account destination = transfer.getDestination();
+
+        if(origin.getNumber().equals(destination.getNumber())){
+            throw new RuntimeException("não é possível realizar uma tranferência para a mesma conta");
+        }
+
+        if(transfer.isSaveDestination()) {
+            origin.getFavorites().add(destination);
+            accountService.update(origin);
+        }
+
         checkSufficientBalance(transfer.getOrigin(), transfer.getAmount());
         tranferAmount(transfer);
+
 
     }
 
