@@ -57,4 +57,21 @@ Para este projeto, adotou-se a **Arquitetura Em Camadas**, onde as responsabilid
 - editar adicionando o usuário e senha do seu MySQL
 - Executar o projeto
 ## API's
-
+### Criar Conta
+~~~
+Method: POST
+url: http://localhost:8080/account
+~~~
+~~~
+{
+    "cpf": "9854785",
+    "name": "bg",
+    "telephone": "91984733208",
+    "email": "dan@email.com",
+    "typeAccount": "CURRENT",
+    "login": {
+        "username": "gabi",
+        "password": "12345"
+    }
+}
+~~~
