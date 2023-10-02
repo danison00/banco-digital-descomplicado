@@ -58,7 +58,7 @@ Para este projeto, adotou-se a **Arquitetura Em Camadas**, onde as responsabilid
 - Executar o projeto
 ## API's
 ### Criar Conta
-Method: POST  
+Método: POST  
 url:
 ~~~
 http://localhost:8080/account
@@ -78,7 +78,7 @@ http://localhost:8080/account
 }
 ~~~
 ### Depósito
-Method: POST  
+Método: POST  
 url:
 ~~~
 http://localhost:8080/transaction/deposit
@@ -87,5 +87,17 @@ http://localhost:8080/transaction/deposit
 {
     "accountNumber" : "4223" ,
     "value" : "150.0"
+}
+~~~
+### Transferência
+Método: POST  
+url:
+~~~
+http://localhost:8080/transaction/transfer)~~~
+~~~
+{
+    "accountSend" : "0675",
+    "value" : 50.0,
+    "saveDestination" : true
 }
 ~~~
