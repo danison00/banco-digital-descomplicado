@@ -6,7 +6,7 @@ import com.dan.bancodigitaldescomplicado.model.entity.Account;
 
 public interface TransactionsService {
    
-    void checkSufficientBalance(Account account, BigDecimal value) throws Exception;
+    boolean checkSufficientBalance(Account account, BigDecimal value) throws Exception;
 
     void incrementBalance(Account account, BigDecimal value);
 

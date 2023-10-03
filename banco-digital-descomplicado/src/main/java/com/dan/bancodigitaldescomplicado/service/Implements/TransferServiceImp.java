@@ -1,4 +1,5 @@
 package com.dan.bancodigitaldescomplicado.service.Implements;
+
 import java.math.BigDecimal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +12,6 @@ import com.dan.bancodigitaldescomplicado.service.interfaces.TransferService;
 
 @Service
 public class TransferServiceImp extends AbstractTransactionalService implements TransferService {
-
 
     @Autowired
     private TransferRepository transferRepository;
@@ -26,28 +26,32 @@ public class TransferServiceImp extends AbstractTransactionalService implements 
         Account origin = transfer.getOrigin();
         Account destination = transfer.getDestination();
 
-        if(origin.getNumber().equals(destination.getNumber())){
+        if (origin.getNumber().equals(destination.getNumber())) {
             throw new RuntimeException("não é possível realizar uma tranferência para a mesma conta");
         }
 
-        if(transfer.isSaveDestination()) {
+        if (transfer.isSaveDestination()) {
             origin.getFavorites().add(destination);
             accountService.update(origin);
         }
 
-        checkSufficientBalance(transfer.getOrigin(), transfer.getAmount());
-        tranferAmount(transfer);
+        if (!checkSufficientBalance(origin, transfer.getAmount())) {
+            throw new RuntimeException("Saldo insuficiente!");
+        }
 
+        tranferAmount(transfer);
 
     }
 
     @Transactional
     @Override
-    public void checkSufficientBalance(Account account, BigDecimal value) throws Exception{
+    public boolean checkSufficientBalance(Account account, BigDecimal value) throws Exception {
 
-        if (account.getBalance().compareTo(account.getBalance()) < 0)
-            throw new RuntimeException("Saldo insuficiente");
-       
+        if (account.getBalance().compareTo(value) < 0)
+            return false;
+
+        return true;
+
     }
 
     @Transactional
@@ -80,5 +84,3 @@ public class TransferServiceImp extends AbstractTransactionalService implements 
     }
 
 }
-
-
