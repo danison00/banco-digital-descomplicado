@@ -93,11 +93,19 @@ http://localhost:8080/transaction/deposit
 Método: POST  
 url:
 ~~~
-http://localhost:8080/transaction/transfer)~~~
+http://localhost:8080/transaction/transfer
+~~~
 ~~~
 {
-    "accountSend" : "0675",
+    "accountDestination" : "0675",
     "value" : 50.0,
     "saveDestination" : true
 }
 ~~~
+### Excluir conta
+Método: DELETE  
+url:
+~~~
+http://localhost:8080/transaction/transfer
+~~~
+
