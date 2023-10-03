@@ -33,15 +33,15 @@ public class Account implements Serializable {
     private LocalDate openingDate;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "origin")
+    @OneToMany(mappedBy = "origin", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Transfer> transferSend;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "destination")
+    @OneToMany(mappedBy = "destination", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Transfer> transferReceived;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "destination")
+    @OneToMany(mappedBy = "destination", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Deposit> deposits;
 
     @ManyToMany
