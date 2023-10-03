@@ -7,6 +7,6 @@ public interface CreateAccountService {
 
     public Account createAccount(CreateAccountRequest request) throws Exception;
 
-    
+    public void deleteAccount(String username) throws Exception;
 
 }
