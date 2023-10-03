@@ -2,6 +2,7 @@ package com.dan.bancodigitaldescomplicado.web.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.dan.bancodigitaldescomplicado.model.dto.CreateAccountRequest;
@@ -9,7 +10,6 @@ import com.dan.bancodigitaldescomplicado.model.entity.Account;
 import com.dan.bancodigitaldescomplicado.service.interfaces.AccountService;
 import com.dan.bancodigitaldescomplicado.service.interfaces.CreateAccountService;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -31,13 +31,11 @@ public class CreateAccountController {
         return ResponseEntity.ok().body(account);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable(name = "id") Long id) throws Exception {
+    @DeleteMapping
+    public ResponseEntity<?> delete(Authentication authentication) throws Exception {
 
-        if (id == null)
-            throw new RuntimeException("parâmetro id inválido");    
-        
-        accountService.deleteById(id);
+        String username = authentication.getPrincipal().toString();
+        createAccountService.deleteAccount(username);
         return ResponseEntity.ok().build();
 
         
