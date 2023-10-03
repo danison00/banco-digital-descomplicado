@@ -57,6 +57,7 @@ Para este projeto, adotou-se a **Arquitetura Em Camadas**, onde as responsabilid
 - editar adicionando o usuário e senha do seu MySQL
 - Executar o projeto
 ## API's
+Obs: é preciso estar autenticado
 ### Criar Conta
 Método: POST  
 url:
