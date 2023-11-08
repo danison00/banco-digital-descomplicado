@@ -14,6 +14,7 @@ Também foi usado o módulo Spring Security e autenticação por Token(JWT) para
 - [x] Realizar depósito
 - [x] Realizar transferências
 - [x] Salvar Conta como favorita
+- [x] Ver histórico de transferências
 
 ## Regras de Negócio 📜🧠
 Para as regras de negócio foram usados os seguintes critérios requistos:
