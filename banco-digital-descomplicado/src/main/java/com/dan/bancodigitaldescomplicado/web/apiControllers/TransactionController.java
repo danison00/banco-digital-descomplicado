@@ -1,4 +1,4 @@
-package com.dan.bancodigitaldescomplicado.web.controllers;
+package com.dan.bancodigitaldescomplicado.web.apiControllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,7 @@ import com.dan.bancodigitaldescomplicado.service.interfaces.TransferService;
 import com.dan.bancodigitaldescomplicado.util.Mapper;
 
 @RestController
-@RequestMapping("transaction")
+@RequestMapping("api/transaction")
 public class TransactionController {
 
     @Autowired

@@ -31,11 +31,22 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.DELETE, "/account").hasRole("USER")
-                        .requestMatchers(HttpMethod.POST, "/account").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/account").permitAll()
                         .requestMatchers("/transaction/deposit").permitAll()
                         .requestMatchers("/transaction/transfer").hasRole("USER")
-                        .requestMatchers("/user/**").permitAll()
+                        .requestMatchers("api/user/**").permitAll()
+                        .requestMatchers("/login").permitAll()
+                        .requestMatchers("/api/login").permitAll()
+
                         .anyRequest().authenticated())
+                .formLogin(login -> login
+                        .loginPage("/login") // Página de login
+                        .defaultSuccessUrl("/home") // Página após o login bem-sucedido
+                        .permitAll())
+                .exceptionHandling(exception -> exception
+                        .authenticationEntryPoint(
+                                (request, response, authException) -> response.sendRedirect("/login")))
+
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
 

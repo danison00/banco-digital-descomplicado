@@ -1,4 +1,4 @@
-package com.dan.bancodigitaldescomplicado.web.controllers;
+package com.dan.bancodigitaldescomplicado.web.apiControllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +11,7 @@ import com.dan.bancodigitaldescomplicado.service.interfaces.AccountService;
 import com.dan.bancodigitaldescomplicado.util.Mapper;
 
 @RestController
-@RequestMapping("account")
+@RequestMapping("api/my-account")
 public class AccountController {
 
     @Autowired

@@ -1,5 +1,6 @@
-package com.dan.bancodigitaldescomplicado.web.controllers;
+package com.dan.bancodigitaldescomplicado.web.apiControllers;
 
+import com.dan.bancodigitaldescomplicado.model.dto.LoginResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,10 +18,14 @@ import com.dan.bancodigitaldescomplicado.model.dto.LoginDto;
 import com.dan.bancodigitaldescomplicado.model.entity.Roles;
 import com.dan.bancodigitaldescomplicado.model.entity.User;
 import com.dan.bancodigitaldescomplicado.service.interfaces.UserService;
+
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
+
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
-@RequestMapping("user")
+@RequestMapping("/api/user")
 public class UserController {
 
     @Autowired
@@ -60,17 +65,25 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginDto user) {
+    public ResponseEntity<?> login(@RequestBody LoginDto user, HttpServletResponse response) {
+
 
         if (!userService.usernameAlreadyExists(user.username()))
-            throw new RuntimeException("Usuário inexistente ou senha inválida");
+
+            throw new RuntimeException("Usuário inexistente ou senha inválida!");
 
         var usernamePassword = new UsernamePasswordAuthenticationToken(user.username(), user.password());
         var auth = this.authenticationManager.authenticate(usernamePassword);
 
         String token = tokenService.generateToken((User) auth.getPrincipal());
 
-        return ResponseEntity.ok(token);
+        Cookie cookie = new Cookie("token-acess", token);
+        cookie.setPath("/");
+        cookie.setMaxAge(60);
+       // cookie.setHttpOnly(true);
+        response.addCookie(cookie);
+
+        return ResponseEntity.ok().body(new LoginResponseDto(token));
     }
 
 }

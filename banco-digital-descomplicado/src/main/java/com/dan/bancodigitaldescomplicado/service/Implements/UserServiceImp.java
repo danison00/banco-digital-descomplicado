@@ -40,20 +40,14 @@ public class UserServiceImp implements UserService {
 
         Optional<UserDetails> user = userRepository.findByUsername(username);
 
-        if (user.isPresent()) {
-            return user.get();
-        }
+        return user.orElse(null);
 
-        return null;
     }
 
     @Override
     public boolean usernameAlreadyExists(String username){
 
-        if (loadUserByUsername(username) != null)
-            return true;
-
-        return false;
+        return null != loadUserByUsername(username);
 
     }
 

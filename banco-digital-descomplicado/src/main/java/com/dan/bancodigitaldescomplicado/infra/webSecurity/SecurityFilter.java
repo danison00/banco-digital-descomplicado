@@ -14,6 +14,7 @@ import com.dan.bancodigitaldescomplicado.service.interfaces.UserService;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -29,31 +30,45 @@ public class SecurityFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException, RuntimeException {
-     
-           String token = this.recoverToken(request);
 
-           if(token != null){
-                
-                String username = tokenService.validateToken(token);
-                
-                if(username != null){
-                    
-                    UserDetails user = userService.loadUserByUsername(username);
-                    var userAuthentication = new UsernamePasswordAuthenticationToken(username, user, user.getAuthorities());      
-                    SecurityContextHolder.getContext().setAuthentication(userAuthentication);
-                }
-           }
+      
+        String token = this.recoverToken(request);
 
-           filterChain.doFilter(request, response);
-        
+        if (token != null) {
+
+            String username = tokenService.validateToken(token);
+
+            if (username != null) {
+
+                UserDetails user = userService.loadUserByUsername(username);
+                var userAuthentication = new UsernamePasswordAuthenticationToken(username, user, user.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(userAuthentication);
+            }else
+                response.sendRedirect("/login");
+        }
+
+        filterChain.doFilter(request, response);
+
     }
-    
-    protected String recoverToken(HttpServletRequest request){
 
-        var authHeader = request.getHeader("Authorization");
 
-        if(authHeader == null) return null;
 
-        return authHeader.replace("Bearer ", "");
+    protected String recoverToken(HttpServletRequest request) {
+
+        Cookie[] cookies = request.getCookies();
+
+        if (cookies != null)
+            for (Cookie cookie : cookies)
+                if (cookie.getName().equals("token-acess")) {
+
+                    return cookie.getValue();
+                }
+
+        // var authHeader = request.getHeader("Authorization");
+
+        // if(authHeader == null) return null;
+
+        // return authHeader.replace("Bearer ", "");
+        return null;
     }
 }
