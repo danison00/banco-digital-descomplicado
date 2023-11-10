@@ -24,12 +24,12 @@ public class TokenService {
 
             String token = JWT.create().withIssuer("banco-digital-descomplicado")
                     .withSubject(user.getUsername())
-                    .withExpiresAt(LocalDateTime.now().plusMinutes(1).toInstant(ZoneOffset.of("-03:00")))
+                    .withExpiresAt(LocalDateTime.now().plusSeconds(30).toInstant(ZoneOffset.of("-03:00")))
                     .sign(algorithm);
 
             return token;
 
-        } catch (JWTCreationException e) {
+        } catch (Exception e) {
             throw new RuntimeException("Erro ao criar token");
         }
     }

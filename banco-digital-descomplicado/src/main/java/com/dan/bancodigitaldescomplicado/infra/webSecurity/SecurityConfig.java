@@ -30,14 +30,16 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.DELETE, "/account").hasRole("USER")
-                        .requestMatchers(HttpMethod.POST, "/api/account").permitAll()
-                        .requestMatchers("/transaction/deposit").permitAll()
-                        .requestMatchers("/transaction/transfer").hasRole("USER")
-                        .requestMatchers("api/user/**").permitAll()
-                        .requestMatchers("/login").permitAll()
-                        .requestMatchers("/api/login").permitAll()
 
+                        .requestMatchers("/api-public/**").permitAll()
+
+                        // .requestMatchers(HttpMethod.DELETE, "/account").hasRole("USER")
+                        // .requestMatchers(HttpMethod.POST, "/api/account").permitAll()
+                        // .requestMatchers("/transaction/deposit").permitAll()
+                        // .requestMatchers("/transaction/transfer").hasRole("USER")
+                        // .requestMatchers("api/user/**").permitAll()
+                        // .requestMatchers("/login").permitAll()
+                        // .requestMatchers("/api/login").permitAll()
                         .anyRequest().authenticated())
                 .formLogin(login -> login
                         .loginPage("/login") // Página de login

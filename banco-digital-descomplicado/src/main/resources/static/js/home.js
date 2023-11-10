@@ -25,10 +25,6 @@ function deposito() {
             else {
 
                 console.log(response.status);
-                if (response.status == "403") {
-                    document.location.href = "http://localhost:8080/log";
-                }
-
 
             }
 
@@ -87,23 +83,19 @@ function buscarDados() {
 
 
 
-
-
     fetch('http://localhost:8080/api/my-account', {
         method: 'GET', // ou 'POST', 'PUT', 'DELETE', etc., dependendo do tipo de requisição que você deseja fazer
 
     })
         .then(response => {
 
-            if (response.ok) {
-                return response.json();
+            if (response.redirected) {
+                window.location.href = response.url;
             }
             else {
 
-                console.log(response.status);
-                if (response.status == "403") {
-                    document.location.href = "http://localhost:8080/log";
-                }
+                return response.json();
+
 
 
             }
@@ -119,6 +111,27 @@ function buscarDados() {
         .catch(error => {
             // Aqui você trata erros da requisição
         });
-
 }
+function logout() {
+    fetch('http://localhost:8080/api-public/logout', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+        .then(response => {
+            if (response.ok) {
 
+                if (response.redirected)
+                    window.location.href = response.url;
+               
+
+            }
+
+        })
+        .catch(error => {
+
+            alert("Erro na requisição: " + error.message);
+            console.log(error.message);
+        });
+}

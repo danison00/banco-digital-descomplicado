@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
-@RequestMapping("api/account")
+@RequestMapping("api-public/account")
 public class CreateAccountController {
 
     @Autowired
@@ -29,17 +29,6 @@ public class CreateAccountController {
         Account account = createAccountService.createAccount(createReq);
 
         return ResponseEntity.ok().body(account);
-    }
-
-    @DeleteMapping
-    public ResponseEntity<?> delete(Authentication authentication) throws Exception {
-
-        String username = authentication.getPrincipal().toString();
-        createAccountService.deleteAccount(username);
-        return ResponseEntity.ok().build();
-
-        
-
     }
 
 }

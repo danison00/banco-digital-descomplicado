@@ -1,55 +1,43 @@
 package com.dan.bancodigitaldescomplicado.web.apiControllers;
 
-import com.dan.bancodigitaldescomplicado.model.dto.LoginResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.dan.bancodigitaldescomplicado.infra.tokenJWT.TokenService;
 import com.dan.bancodigitaldescomplicado.model.dto.ErrorResponse;
-import com.dan.bancodigitaldescomplicado.model.dto.LoginDto;
-import com.dan.bancodigitaldescomplicado.model.entity.Roles;
-import com.dan.bancodigitaldescomplicado.model.entity.User;
 import com.dan.bancodigitaldescomplicado.service.interfaces.UserService;
-
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletResponse;
-
-import org.springframework.web.bind.annotation.RequestBody;
+// import com.dan.bancodigitaldescomplicado.model.dto.LoginResponseDto;
+// import org.springframework.security.authentication.AuthenticationManager;
+// import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+// import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+// import org.springframework.web.bind.annotation.PostMapping;
+// import com.dan.bancodigitaldescomplicado.model.dto.LoginDto;
+// import com.dan.bancodigitaldescomplicado.model.entity.Roles;
+// import com.dan.bancodigitaldescomplicado.model.entity.User;
+// import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("api-public/user")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    // @PostMapping("/register")
+    // public ResponseEntity<?> save(@RequestBody LoginDto user) throws Exception {
 
-    @Autowired
-    private TokenService tokenService;
+    //     String ecryptedPassword = new BCryptPasswordEncoder().encode(user.password());
 
-    @PostMapping("/register")
-    public ResponseEntity<?> save(@RequestBody LoginDto user) throws Exception {
+    //     User nUser = new User(user.username(), ecryptedPassword, Roles.USER);
 
-        String ecryptedPassword = new BCryptPasswordEncoder().encode(user.password());
+    //     System.out.println(nUser.getUsername() + "  " + nUser.getPassword());
 
-        User nUser = new User(user.username(), ecryptedPassword, Roles.USER);
+    //     var newUser = userService.save(nUser);
 
-        System.out.println(nUser.getUsername() + "  " + nUser.getPassword());
-
-        var newUser = userService.save(nUser);
-
-        return ResponseEntity.ok().body(newUser);
-    }
+    //     return ResponseEntity.ok().body(newUser);
+    // }
 
     @GetMapping("/username-exists/{username}")
     public ResponseEntity<?> usernameExists(@PathVariable("username") String username) throws Exception {
@@ -64,26 +52,6 @@ public class UserController {
 
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginDto user, HttpServletResponse response) {
 
-
-        if (!userService.usernameAlreadyExists(user.username()))
-
-            throw new RuntimeException("Usuário inexistente ou senha inválida!");
-
-        var usernamePassword = new UsernamePasswordAuthenticationToken(user.username(), user.password());
-        var auth = this.authenticationManager.authenticate(usernamePassword);
-
-        String token = tokenService.generateToken((User) auth.getPrincipal());
-
-        Cookie cookie = new Cookie("token-acess", token);
-        cookie.setPath("/");
-        cookie.setMaxAge(60);
-       // cookie.setHttpOnly(true);
-        response.addCookie(cookie);
-
-        return ResponseEntity.ok().body(new LoginResponseDto(token));
-    }
 
 }
