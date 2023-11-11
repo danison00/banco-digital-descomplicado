@@ -3,6 +3,7 @@ package com.dan.bancodigitaldescomplicado.web.apiControllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,7 @@ import com.dan.bancodigitaldescomplicado.util.Mapper;
 
 @RestController
 @RequestMapping("api/my-account")
+@CrossOrigin(origins = "*")
 public class MyAccountController {
 
     @Autowired
@@ -37,7 +39,6 @@ public class MyAccountController {
 
         return ResponseEntity.ok().body(accountDto);
     }
-
 
     @DeleteMapping
     public ResponseEntity<?> delete(Authentication authentication) throws Exception {

@@ -1,54 +1,43 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/login.css">
+    <script src="/js/login.js" defer></script>
+
+    <title>Login</title>
 </head>
 
 <body>
-    <div>
+    <div class="container">
+        <header class="header">
+            <img src="img/turing-logo.jpeg" alt="banco Turing" />
+
+            <span>Faça login na sua conta</span>
+        </header>
+
         <div>
-            <input type="text" id="username">
-            <input type="password" id="password">
-            <button onclick="login()">entrar</button>
+            <div class="inputContainer">
+                <label htmlFor="username">Username</label>
+                <input class="input" type="text" id="username" placeholder="username" />
+            </div>
+
+            <div class="inputContainer">
+                <label htmlFor="password">Password</label>
+                <input class="input" type="password" id="password" placeholder="********" />
+                <div class="alert-text" id="alert-text">Usuário ou senha inválidos</div>
+            </div>
+
+            <a href="# ">Esqueceu sua senha?</a>
+            <button class="button" onclick="login()">Entrar</button>
+
+            <div class="footer">
+                <p>Você não possui conta no banco? </p>
+                <a href=" "> Criar conta</a>
+            </div>
         </div>
-        <script>
-            function login() {
-                var username = document.getElementById("username").value;
-                var password = document.getElementById("password").value;
-
-
-                var data = {
-                    username: username,
-                    password: password
-                };
-
-
-                fetch('http://localhost:8080/api-public/login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data)
-                })
-                    .then(response => {
-                        if (response.ok) {
-                            alert("Login bem-sucedido");
-                            document.location.href = 'http://localhost:8080/home';
-                            return response.json();
-                        } else
-                            alert("Falha no login");
-
-                    })
-                    .catch(error => {
-
-                        alert("Erro na requisição: " + error.message);
-                        console.log(error.message);
-                    });
-            }
-           
-        </script>
     </div>
 </body>
 

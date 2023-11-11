@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("api-public")
+@CrossOrigin(origins = "*")
 public class LoginController {
 
     @Autowired
@@ -33,10 +35,12 @@ public class LoginController {
     @Autowired
     private TokenService tokenService;
     
+
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginDto user, HttpServletResponse response) {
 
 
+        System.out.println(user.toString());
         if (!userService.usernameAlreadyExists(user.username()))
 
             throw new RuntimeException("Usuário inexistente ou senha inválida!");
@@ -48,7 +52,7 @@ public class LoginController {
 
         Cookie cookie = new Cookie("token-acess", token);
         cookie.setPath("/");
-        cookie.setMaxAge(60);
+        cookie.setMaxAge(60*24);
         cookie.setHttpOnly(true);
         response.addCookie(cookie);
 
@@ -61,7 +65,7 @@ public class LoginController {
         cookie.setPath("/");
         cookie.setMaxAge(0);
         response.addCookie(cookie);
-        response.sendRedirect("/login");
+        response.sendRedirect("http://192.168.0.105:8080/login");
 
         return ResponseEntity.ok().build();
     }

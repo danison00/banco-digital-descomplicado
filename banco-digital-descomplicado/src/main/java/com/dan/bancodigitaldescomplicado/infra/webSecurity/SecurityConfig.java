@@ -20,51 +20,55 @@ import com.dan.bancodigitaldescomplicado.model.entity.Roles;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Autowired
-    private SecurityFilter securityFilter;
+        @Autowired
+        private SecurityFilter securityFilter;
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        @Bean
+        public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        return http.csrf(csrf -> csrf.disable())
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                return http.cors(cors->cors.disable()).csrf(csrf -> csrf.disable())
+                                .sessionManagement(session -> session
+                                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
-                .authorizeHttpRequests(authorize -> authorize
+                                .authorizeHttpRequests(authorize -> authorize
 
-                        .requestMatchers("/api-public/**").permitAll()
+                                                .requestMatchers("/api-public/**").permitAll()
+                                                .requestMatchers("/img/**", "/js/**", "/css/**").permitAll()
+                                                .requestMatchers("/turing-bank").permitAll()
+                                                .requestMatchers("/home").permitAll()
+                                                // .requestMatchers(HttpMethod.DELETE, "/account").hasRole("USER")
+                                                // .requestMatchers(HttpMethod.POST, "/api/account").permitAll()
+                                                // .requestMatchers("/transaction/deposit").permitAll()
+                                                // .requestMatchers("/transaction/transfer").hasRole("USER")
+                                                // .requestMatchers("api/user/**").permitAll()
+                                                // .requestMatchers("/login").permitAll()
+                                                // .requestMatchers("/api/login").permitAll()
+                                                .anyRequest().authenticated())
+                                .formLogin(login -> login
+                                                .loginPage("/login") // Página de login
+                                                .defaultSuccessUrl("/home") // Página após o login bem-sucedido
+                                                .permitAll())
+                                .exceptionHandling(exception -> exception
+                                                .authenticationEntryPoint(
+                                                                (request, response, authException) -> response
+                                                                                .sendRedirect("/login")))
 
-                        // .requestMatchers(HttpMethod.DELETE, "/account").hasRole("USER")
-                        // .requestMatchers(HttpMethod.POST, "/api/account").permitAll()
-                        // .requestMatchers("/transaction/deposit").permitAll()
-                        // .requestMatchers("/transaction/transfer").hasRole("USER")
-                        // .requestMatchers("api/user/**").permitAll()
-                        // .requestMatchers("/login").permitAll()
-                        // .requestMatchers("/api/login").permitAll()
-                        .anyRequest().authenticated())
-                .formLogin(login -> login
-                        .loginPage("/login") // Página de login
-                        .defaultSuccessUrl("/home") // Página após o login bem-sucedido
-                        .permitAll())
-                .exceptionHandling(exception -> exception
-                        .authenticationEntryPoint(
-                                (request, response, authException) -> response.sendRedirect("/login")))
+                                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
+                                .build();
 
-                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
-                .build();
+        }
 
-    }
+        @Bean
+        public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
+                        throws Exception {
 
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
-            throws Exception {
+                return authenticationConfiguration.getAuthenticationManager();
 
-        return authenticationConfiguration.getAuthenticationManager();
+        }
 
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+        @Bean
+        public PasswordEncoder passwordEncoder() {
+                return new BCryptPasswordEncoder();
+        }
 
 }

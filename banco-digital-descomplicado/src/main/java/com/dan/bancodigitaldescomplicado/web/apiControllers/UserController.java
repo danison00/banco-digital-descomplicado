@@ -2,6 +2,7 @@ package com.dan.bancodigitaldescomplicado.web.apiControllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ import com.dan.bancodigitaldescomplicado.service.interfaces.UserService;
 
 @RestController
 @RequestMapping("api-public/user")
+@CrossOrigin(origins = "*")
 public class UserController {
 
     @Autowired
@@ -28,15 +30,16 @@ public class UserController {
     // @PostMapping("/register")
     // public ResponseEntity<?> save(@RequestBody LoginDto user) throws Exception {
 
-    //     String ecryptedPassword = new BCryptPasswordEncoder().encode(user.password());
+    // String ecryptedPassword = new
+    // BCryptPasswordEncoder().encode(user.password());
 
-    //     User nUser = new User(user.username(), ecryptedPassword, Roles.USER);
+    // User nUser = new User(user.username(), ecryptedPassword, Roles.USER);
 
-    //     System.out.println(nUser.getUsername() + "  " + nUser.getPassword());
+    // System.out.println(nUser.getUsername() + " " + nUser.getPassword());
 
-    //     var newUser = userService.save(nUser);
+    // var newUser = userService.save(nUser);
 
-    //     return ResponseEntity.ok().body(newUser);
+    // return ResponseEntity.ok().body(newUser);
     // }
 
     @GetMapping("/username-exists/{username}")
@@ -51,7 +54,5 @@ public class UserController {
         return ResponseEntity.ok().build();
 
     }
-
-
 
 }

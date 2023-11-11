@@ -1,4 +1,5 @@
 
+const context = "http://192.168.0.105:8080";
 function deposito() {
 
     var numberAccount = document.getElementById("numberAcc").value;
@@ -9,7 +10,7 @@ function deposito() {
         "value": value,
     }
 
-    fetch('http://localhost:8080/api/transaction/deposit', {
+    fetch(context+'/api/transaction/deposit', {
         method: 'POST', // ou 'POST', 'PUT', 'DELETE', etc., dependendo do tipo de requisição que você deseja fazer
 
         headers: {
@@ -48,7 +49,7 @@ function transferir() {
         "saveDestination": fav
 
     }
-    fetch('http://localhost:8080/api/transaction/transfer', {
+    fetch(context+'/api/transaction/transfer', {
         method: 'POST', // ou 'POST', 'PUT', 'DELETE', etc., dependendo do tipo de requisição que você deseja fazer
 
         headers: {
@@ -62,11 +63,6 @@ function transferir() {
                 alert("tranferência realizada com sucesso")
             }
             else {
-
-                console.log(response.status);
-                if (response.status == "403") {
-                    document.location.href = "http://localhost:8080/log";
-                }
 
 
             }
@@ -83,7 +79,7 @@ function buscarDados() {
 
 
 
-    fetch('http://localhost:8080/api/my-account', {
+    fetch(context+'/api/my-account', {
         method: 'GET', // ou 'POST', 'PUT', 'DELETE', etc., dependendo do tipo de requisição que você deseja fazer
 
     })
@@ -113,7 +109,7 @@ function buscarDados() {
         });
 }
 function logout() {
-    fetch('http://localhost:8080/api-public/logout', {
+    fetch(context+'/api-public/logout', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
