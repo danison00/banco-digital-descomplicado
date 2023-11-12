@@ -20,7 +20,7 @@ import com.dan.bancodigitaldescomplicado.service.interfaces.UserService;
 // import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
-@RequestMapping("api-public/user")
+@RequestMapping("api")
 @CrossOrigin(origins = "*")
 public class UserController {
 

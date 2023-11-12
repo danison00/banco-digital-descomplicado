@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import com.dan.bancodigitaldescomplicado.model.dto.AccountFavoriteDto;
 import com.dan.bancodigitaldescomplicado.model.dto.AccountResponseDto;
 import com.dan.bancodigitaldescomplicado.model.dto.CreateAccountRequest;
+import com.dan.bancodigitaldescomplicado.model.dto.AccountDataResponseDto;
 import com.dan.bancodigitaldescomplicado.model.dto.DepositRequestDto;
 import com.dan.bancodigitaldescomplicado.model.dto.DepositResponseDto;
 import com.dan.bancodigitaldescomplicado.model.dto.LoginDto;
@@ -46,7 +47,6 @@ public class MapperImp implements Mapper {
 
         String password = new BCryptPasswordEncoder().encode(createAcc.login().password());
 
-
         User user = new User(createAcc.login().username(), password, Roles.USER);
 
         return new Client(
@@ -59,7 +59,8 @@ public class MapperImp implements Mapper {
     }
 
     @Override
-    public Transfer fromTransactionDtoToTransaction(TransferRequestDto transactionDto, String username) throws Exception {
+    public Transfer fromTransactionDtoToTransaction(TransferRequestDto transactionDto, String username)
+            throws Exception {
 
         Account accountOrigin = accountService.findByUsername(username);
         Account accountDestination = accountService.findByNumber(transactionDto.accountDestination());
@@ -71,15 +72,14 @@ public class MapperImp implements Mapper {
 
     public Deposit fromDepositDtoToDeposit(DepositRequestDto depositDto) throws Exception {
 
-        if(depositDto.value() == null) throw new RuntimeException("Verifique o valor do depósito");
-
+        if (depositDto.value() == null)
+            throw new RuntimeException("Verifique o valor do depósito");
 
         Account accountOrigin = accountService.findByNumber(depositDto.accountNumber());
 
         return new Deposit(accountOrigin, depositDto.value());
 
     }
-
 
     @Override
     public AccountResponseDto fromAccountToAccountResponseDto(Account account) {
@@ -98,8 +98,8 @@ public class MapperImp implements Mapper {
         account.getTransferSend().stream().forEach(
                 transfer -> transfersSend.add(fromTransferToTransferSendResponseDto(transfer)));
         account.getFavorites().stream().forEach(
-            favorite -> favoritesAccounts.add( new AccountFavoriteDto(favorite.getClient().getName(), favorite.getNumber()))
-        );
+                favorite -> favoritesAccounts
+                        .add(new AccountFavoriteDto(favorite.getClient().getName(), favorite.getNumber())));
 
         return new AccountResponseDto(
                 account.getClient().getName(),
@@ -139,5 +139,11 @@ public class MapperImp implements Mapper {
 
     }
 
+    @Override
+    public AccountDataResponseDto fromAccountToAccountDataResponseDto(Account account) throws Exception {
+        return new AccountDataResponseDto(account.getClient().getCpf(), account.getClient().getName(),
+                account.getClient().getTelephone(), account.getClient().getEmail(),
+                account.getNumber(), account.getOpeningDate(), account.getType().name());
+    }
 
 }

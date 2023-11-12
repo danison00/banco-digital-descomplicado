@@ -2,6 +2,7 @@ package com.dan.bancodigitaldescomplicado.util;
 
 import com.dan.bancodigitaldescomplicado.model.dto.AccountResponseDto;
 import com.dan.bancodigitaldescomplicado.model.dto.CreateAccountRequest;
+import com.dan.bancodigitaldescomplicado.model.dto.AccountDataResponseDto;
 import com.dan.bancodigitaldescomplicado.model.dto.DepositRequestDto;
 import com.dan.bancodigitaldescomplicado.model.dto.LoginDto;
 import com.dan.bancodigitaldescomplicado.model.dto.TransferRequestDto;
@@ -17,6 +18,7 @@ import com.dan.bancodigitaldescomplicado.model.entity.User;
 public interface Mapper {
 
     Account fromCreateAccountRequestToAccount(CreateAccountRequest createAcc) throws Exception;
+    AccountDataResponseDto fromAccountToAccountDataResponseDto(Account account) throws Exception;
 
     Client fromCreateAccountRequestToCliente(CreateAccountRequest createAcc) throws Exception;
 

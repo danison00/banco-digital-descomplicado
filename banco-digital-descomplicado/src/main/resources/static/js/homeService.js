@@ -7,7 +7,7 @@ ajax(context+'/api/my-account', "GET", null)
   .then(dados => {
     accountData = dados;
     console.log('Dados recebidos:', dados);
-    document.getElementById("nameUser").innerText = "Olá, "+dados.name+"!";
+    document.getElementById("nameUser").innerText = "Olá, "+String(dados.name).split(" ")[0]+"!";
    
 });
 
