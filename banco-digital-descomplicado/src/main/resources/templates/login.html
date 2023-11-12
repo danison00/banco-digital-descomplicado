@@ -4,38 +4,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/login.css">
-    <script src="/js/login.js" defer></script>
-
+    <link rel="stylesheet" href="/css/login.css">
+    <script src="/js/login.js"></script>
+    <script src="/js/loginService.js"></script>
     <title>Login</title>
 </head>
 
 <body>
     <div class="container">
-        <header class="header">
-            <img src="img/turing-logo.jpeg" alt="banco Turing" />
+        <div class="card">
 
-            <span>Faça login na sua conta</span>
-        </header>
+            <header class="header">
+                <img src="/img/turing-logo.png" alt="banco Turing" />
 
-        <div>
-            <div class="inputContainer">
-                <label htmlFor="username">Username</label>
-                <input class="input" type="text" id="username" placeholder="username" />
-            </div>
+                <span>FAÇA LOGIN NA SUA CONTA</span>
+            </header>
 
-            <div class="inputContainer">
-                <label htmlFor="password">Password</label>
-                <input class="input" type="password" id="password" placeholder="********" />
-                <div class="alert-text" id="alert-text">Usuário ou senha inválidos</div>
-            </div>
+            <div class="form">
+                <div class="inputContainer">
+                    <label>USERNAME</label>
+                    <input class="input" type="text" id="username" placeholder="Usuário" />
+                </div>
 
-            <a href="# ">Esqueceu sua senha?</a>
-            <button class="button" onclick="login()">Entrar</button>
+                <div class="inputContainer">
+                    <label>PASSWORD</label>
+                    <input class="input" type="password" id="password" placeholder="********" />
+                    <div class="alert-text" id="alert-text">Usuário ou senha inválidos</div>
+                </div>
 
-            <div class="footer">
-                <p>Você não possui conta no banco? </p>
-                <a href=" "> Criar conta</a>
+                <div class="inputContainer">                    
+                    <button class="button" onclick="login()">ENTRAR</button>
+                </div>
+                <div class="container-btn">
+                    <button class="btn-deposito" onclick="telaDeposito()">REALIZAR DEPÓSITO</button>
+                    
+                </div>
+
+                <div class="footer">
+                    <p>Você não possui conta no banco? </p>
+                    <a href=" "> Criar conta</a>
+                </div>
             </div>
         </div>
     </div>

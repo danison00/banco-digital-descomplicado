@@ -74,7 +74,7 @@ public class SecurityFilter extends OncePerRequestFilter {
         Cookie cookie = new Cookie("token-acess", token);
         System.out.println("update tokn");
         cookie.setPath("/");
-        cookie.setMaxAge(30);
+        cookie.setMaxAge(60*60);
         cookie.setHttpOnly(true);
         response.addCookie(cookie);
         // }

@@ -24,7 +24,7 @@ public class TokenService {
 
             String token = JWT.create().withIssuer("banco-digital-descomplicado")
                     .withSubject(user.getUsername())
-                    .withExpiresAt(LocalDateTime.now().plusHours(60*24).toInstant(ZoneOffset.of("-03:00")))
+                    .withExpiresAt(LocalDateTime.now().plusMinutes(60).toInstant(ZoneOffset.of("-03:00")))
                     .sign(algorithm);
 
             return token;

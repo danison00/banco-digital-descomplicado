@@ -1,133 +1,42 @@
+function hiddenBalance() {
+    document.getElementById("eye-slash").style.display = "none";
+    document.getElementById("eye").style.display = "inline";
+    document.getElementById("balance").innerText = "R$ ****"
 
-const context = "http://192.168.0.105:8080";
-function deposito() {
 
-    var numberAccount = document.getElementById("numberAcc").value;
-    var value = document.getElementById("value").value;
+}
+function showBalance() {
+    document.getElementById("eye-slash").style.display = "inline";
+    document.getElementById("eye").style.display = "none";
 
-    var data = {
-        "accountNumber": numberAccount,
-        "value": value,
+    var balance = formattedBalance(String(accountData.balance));
+
+    document.getElementById("balance").innerText = balance;
+
+}
+function formattedBalance(balance) {
+
+    var valorDepoisVirgula;
+    if (!balance.includes(".")) {
+        valorDepoisVirgula = "00";
+
+    } else {
+        valorDepoisVirgula = balance.split(".")[1];
     }
 
-    fetch(context+'/api/transaction/deposit', {
-        method: 'POST', // ou 'POST', 'PUT', 'DELETE', etc., dependendo do tipo de requisição que você deseja fazer
 
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data)
-    })
-        .then(response => {
+    var aux1 = balance.split(".")[0];
 
-            if (response.ok) {
-                alert("deposito realizado com sucesso")
-            }
-            else {
-
-                console.log(response.status);
-
-            }
-
-
-        })
-        .catch(error => {
-            // Aqui você trata erros da requisição
-        });
-
-}
-function transferir() {
-
-    var numberAccount = document.getElementById("numberAccount").value;
-    var value = document.getElementById("valueTranfer").value;
-    var fav = false;
-    if (document.getElementById("fav").checked) fav = true;
-    var data = {
-
-        "accountDestination": numberAccount,
-        "value": value,
-        "saveDestination": fav
-
-    }
-    fetch(context+'/api/transaction/transfer', {
-        method: 'POST', // ou 'POST', 'PUT', 'DELETE', etc., dependendo do tipo de requisição que você deseja fazer
-
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data)
-    })
-        .then(response => {
-
-            if (response.ok) {
-                alert("tranferência realizada com sucesso")
-            }
-            else {
-
-
-            }
-
-
-        })
-        .catch(error => {
-            // Aqui você trata erros da requisição
-        });
-
-
-}
-function buscarDados() {
-
-
-
-    fetch(context+'/api/my-account', {
-        method: 'GET', // ou 'POST', 'PUT', 'DELETE', etc., dependendo do tipo de requisição que você deseja fazer
-
-    })
-        .then(response => {
-
-            if (response.redirected) {
-                window.location.href = response.url;
-            }
-            else {
-
-                return response.json();
-
-
-
-            }
-
-
-        })
-        .then(data => {
-
-
-
-            console.log(data);
-        })
-        .catch(error => {
-            // Aqui você trata erros da requisição
-        });
-}
-function logout() {
-    fetch(context+'/api-public/logout', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
+    for (var i = aux1.length; i > 0; i--) {
+        if (i % 3 == 0 &&  aux1.length - i != 0) {
+            var part1 = aux1.substring(0, aux1.length - i);
+            var part2 = aux1.substring(aux1.length - i);
+            aux1 = part1 + "." + part2;
         }
-    })
-        .then(response => {
-            if (response.ok) {
+        console.log(aux1);
+    }
 
-                if (response.redirected)
-                    window.location.href = response.url;
-               
 
-            }
+    return "R$ " + aux1 + "," + valorDepoisVirgula;
 
-        })
-        .catch(error => {
-
-            alert("Erro na requisição: " + error.message);
-            console.log(error.message);
-        });
 }

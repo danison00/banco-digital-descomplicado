@@ -71,6 +71,9 @@ public class MapperImp implements Mapper {
 
     public Deposit fromDepositDtoToDeposit(DepositRequestDto depositDto) throws Exception {
 
+        if(depositDto.value() == null) throw new RuntimeException("Verifique o valor do depósito");
+
+
         Account accountOrigin = accountService.findByNumber(depositDto.accountNumber());
 
         return new Deposit(accountOrigin, depositDto.value());

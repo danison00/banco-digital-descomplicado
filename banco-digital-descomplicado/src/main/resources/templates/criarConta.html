@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/criarConta.css">
+</head>
+<body>
+
+    <div class="container">
+        <div class="card-special">
+
+            <header class="header">
+                <img src="/img/turing-logo.png" alt="banco Turing" />
+
+                <span>Crie sua Conta agora mesmo!</span>
+
+            </header>
+
+            <div class="form">
+                <div class="inputContainer">
+                    <label htmlFor="Número da conta">Username</label>
+                    <input class="input" type="text" id="username" placeholder="username" />
+                    <div class="my-alert-text" id="alert-text">Username não disponível</div>
+                </div>
+
+                <div class="inputContainer">
+                    <label htmlFor="value">Senha</label>
+                    <input class="input" id="value" type="password" step="0.01" min="0.01" placeholder="" />
+                </div>
+                <button class="button" onclick="depositCheckData()">Avançar</button>
+
+                <div class="next-step">
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>

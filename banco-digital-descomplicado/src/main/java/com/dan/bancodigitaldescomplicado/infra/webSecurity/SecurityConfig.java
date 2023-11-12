@@ -34,8 +34,9 @@ public class SecurityConfig {
 
                                                 .requestMatchers("/api-public/**").permitAll()
                                                 .requestMatchers("/img/**", "/js/**", "/css/**").permitAll()
-                                                .requestMatchers("/turing-bank").permitAll()
-                                                .requestMatchers("/home").permitAll()
+                                                .requestMatchers("/turing-bank", "/deposito", "/api/transaction/deposit/**", "/api/transaction/deposit").permitAll()
+                                                .requestMatchers("/criar-conta").permitAll()
+                                                //.requestMatchers("/home").permitAll()
                                                 // .requestMatchers(HttpMethod.DELETE, "/account").hasRole("USER")
                                                 // .requestMatchers(HttpMethod.POST, "/api/account").permitAll()
                                                 // .requestMatchers("/transaction/deposit").permitAll()

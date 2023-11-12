@@ -17,7 +17,7 @@ public class DepositServiceImp implements DepositService {
     @Autowired
     private DepositRepository depositRepository;
 
-      @Autowired
+    @Autowired
     private AccountService accountService;
 
     @Transactional
@@ -26,14 +26,16 @@ public class DepositServiceImp implements DepositService {
 
         Account destination = deposit.getDestination();
         BigDecimal value = deposit.getAmount();
+       
+        if (value.compareTo(BigDecimal.ZERO) <= 0)
+            throw new RuntimeException("Verifique o valor do depósito");
 
         incrementValue(destination, value);
         accountService.update(destination);
-        
+
         depositRepository.save(deposit);
 
     }
-
 
     @Transactional
     @Override
@@ -42,7 +44,5 @@ public class DepositServiceImp implements DepositService {
         account.setBalance(account.getBalance().add(value));
 
     }
-
-
 
 }
