@@ -52,7 +52,7 @@ public class LoginController {
 
         Cookie cookie = new Cookie("token-acess", token);
         cookie.setPath("/");
-        cookie.setMaxAge(60*60);
+        cookie.setMaxAge(60*3);
         cookie.setHttpOnly(true);
         response.addCookie(cookie);
 
