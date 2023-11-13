@@ -26,18 +26,21 @@ public class SecurityConfig {
         @Bean
         public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-                return http.cors(cors->cors.disable()).csrf(csrf -> csrf.disable())
+                return http.cors(cors -> cors.disable()).csrf(csrf -> csrf.disable())
                                 .sessionManagement(session -> session
                                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
                                 .authorizeHttpRequests(authorize -> authorize
-
+                                               .requestMatchers("/h2/banco/**").permitAll()
                                                 .requestMatchers("/api-public/**").permitAll()
                                                 .requestMatchers("/img/**", "/js/**", "/css/**").permitAll()
-                                                .requestMatchers("/turing-bank", "/deposito", "/api/transaction/deposit/**", "/api/transaction/deposit").permitAll()
+                                                .requestMatchers("/turing-bank", "/deposito",
+                                                                "/api/transaction/deposit/**",
+                                                                "/api/transaction/deposit")
+                                                .permitAll()
                                                 .requestMatchers("/criar-conta").permitAll()
                                                 .requestMatchers("/api/username-exists/**").permitAll()
-                                                //.requestMatchers("/home").permitAll()
+                                                // .requestMatchers("/home").permitAll()
                                                 // .requestMatchers(HttpMethod.DELETE, "/account").hasRole("USER")
                                                 // .requestMatchers(HttpMethod.POST, "/api/account").permitAll()
                                                 // .requestMatchers("/transaction/deposit").permitAll()
