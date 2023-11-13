@@ -31,7 +31,7 @@ public class SecurityConfig {
                                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
                                 .authorizeHttpRequests(authorize -> authorize
-                                               .requestMatchers("/h2/banco/**").permitAll()
+                                               .requestMatchers("/").permitAll()
                                                 .requestMatchers("/api-public/**").permitAll()
                                                 .requestMatchers("/img/**", "/js/**", "/css/**").permitAll()
                                                 .requestMatchers("/turing-bank", "/deposito",
